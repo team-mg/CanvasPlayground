@@ -3,14 +3,11 @@ import compression from 'compression';
 import cors from 'cors';
 
 import Notfound from './router/notfound';
-import Todo from './router/todo';
 import Index from './router/index';
-import ejs from 'ejs';
 
 export default class App{
     public app: express.Application;
     private notfound: Notfound;
-    private todo: Todo;
     private index: Index;
 
     public static bootstrap(): App{
@@ -20,7 +17,6 @@ export default class App{
     constructor(){
         this.app = express();
         this.notfound = new Notfound();
-        this.todo = new Todo();
         this.index = new Index();
 
         this._setView();
@@ -29,15 +25,13 @@ export default class App{
         this._setRouter();
     }
 
-    
-
     _setView(){
         this.app.set('views', __dirname + '/views');
         this.app.set('view engine', 'ejs');
     }
 
     _setEngine(){
-        this.app.engine('html', ejs.renderFile);
+        this.app.engine('html', require('ejs').renderFile);
     }
 
     _setMiddleware(){
@@ -48,7 +42,6 @@ export default class App{
 
     _setRouter(){
         this.app.use(this.index.router);
-        this.app.use('/todo', this.todo.router);
         this.app.use(this.notfound.router);
     }
 }
