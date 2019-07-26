@@ -21,10 +21,12 @@
     "@types/compression": "0.0.36",
     "@types/cors": "^2.8.4",
     "@types/ejs": "^2.6.1",
+    "@types/mongodb": "^3.1.30",
     "compression": "^1.7.3",
     "cors": "^2.8.5",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "mongodb": "^3.3.0-beta2",
     "underscore": "^1.9.1"
   },
   "devDependencies": {
