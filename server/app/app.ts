@@ -2,23 +2,26 @@ import express from 'express';
 import compression from 'compression';
 import cors from 'cors';
 
+import mongodb from 'mongodb'
+
 import Notfound from './router/notfound';
 import Index from './router/index';
+import Api from './router/api';
 
 export default class App{
     public app: express.Application;
     private notfound: Notfound;
     private index: Index;
+    private api: Api;
 
-    public static bootstrap(): App{
-        return new App();
-    }
-
-    constructor(){
+    constructor(db:mongodb.Db){
         this.app = express();
         this.notfound = new Notfound();
         this.index = new Index();
+        this.api = new Api(db);
+    }
 
+    _setup() {
         this._setView();
         this._setEngine();
         this._setMiddleware();
